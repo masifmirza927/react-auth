@@ -1,0 +1,28 @@
+.mWrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0 0 0 / 17%);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mWrapper .mBox {
+    width: 650px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px #0000002e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.mWrapper .mBox button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 0px;
+    box-shadow: 0px 0px 4px #00000029;
+}
