@@ -19,7 +19,7 @@
     align-items: center;
     position: relative;
 }
-.mWrapper .mBox button {
+.mWrapper .mBox button.closeBtn {
     position: absolute;
     top: 20px;
     right: 20px;

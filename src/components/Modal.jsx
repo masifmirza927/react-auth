@@ -9,9 +9,10 @@ const handleClose = () => {
   if(props.isOpen === true) {
     return (
         <div className='mWrapper'>
+          
             <div className='mBox'>
-                <button onClick={handleClose}>&#x2715;</button>
-                modal
+                <button className='closeBtn' onClick={handleClose}>&#x2715;</button>
+                {props.children}
             </div>
         </div>
       )
