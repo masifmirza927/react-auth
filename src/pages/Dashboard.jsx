@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { getToken } from "../helpers";
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+
 
 function Dashboard() {
   const navigator = useNavigate();
-  const token = getToken();
 
-  console.log(token)
-
+const UserContext = useContext(AuthContext);
 
   useEffect(() => {
-    if (token === null) {
-      navigator("/login");
+    if (UserContext.user?.role !== "admin") {
+      navigator("/");
     }
-  }, [])
+  }, []);
 
-  if (token !== null) {
+  // if (token !== null) {
     return (
-      <div>Dashboard</div>
+      <div>
+        <button onClick={ () => navigator(-1) }>Back</button>
+        Dashboard
+      </div>
     )
-  }
+  // }
 
 }
 

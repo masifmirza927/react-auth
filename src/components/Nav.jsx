@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import {getToken} from "../helpers";
-import { authContext } from '../App';
+import { isAuthenticated } from "../helpers";
+import { AuthContext } from '../context/AuthContext';
 
 
 function Nav() {
-    const token = getToken();
-    const data = useContext(authContext);
+    const UserContext = useContext(AuthContext);
+
+    console.log("contextUser: ",  UserContext);
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -32,12 +33,19 @@ function Nav() {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 {
-                                    (data.isLoggedIn == false) ? <Link className=" btn btn-dark mx-2" to="/login">Login</Link> : <Link className=" btn btn-dark mx-2" to="/logout">Logout</Link>
+                                    (UserContext.user !== null) ? UserContext.user.name : null
                                 }
                             </li>
+
                             <li className="nav-item">
-                                <Link className=" btn btn-dark" to="/register">Register</Link>
+                                {
+                                    (UserContext.user === null) ?  <Link className=" btn btn-dark mx-2" to="/login">Login</Link> : <Link className=" btn btn-dark mx-2" to="/logout">Logout</Link>
+                                }
                             </li>
+                            {
+                                (UserContext.user === null ) ? <li className="nav-item"> <Link className=" btn btn-dark" to="/register">Register</Link></li> : null
+                            }
+
                         </ul>
                     </div>
                 </div>

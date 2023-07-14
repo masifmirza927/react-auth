@@ -1,14 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+import jwtDecode from "jwt-decode";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
     const navigator = useNavigate();
+
+  const UserContext = useContext(AuthContext);
+
 
     const handleLogin = () => {
         setIsLoading(true);
@@ -22,8 +26,9 @@ function Login() {
             }
             if (response.data.status === true) {
                 setError(null);
-                localStorage.setItem("ssid", response.data.token);
-                navigator("/");
+                localStorage.setItem("token", JSON.stringify(response.data.token));
+                UserContext.setUser(jwtDecode(response.data.token));
+                navigator("/", {replace: true});
             }
             setIsLoading(false);
         }).catch( (err) => {

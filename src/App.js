@@ -7,35 +7,37 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Logout from './pages/Logout';
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import OnlyAuth from './components/OnlyAuth';
+import { AuthContext } from './context/AuthContext';
 
-export const authContext = createContext();
-
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+    
+//core
+import "primereact/resources/primereact.min.css";   
+import Datatable from './pages/Datatable';
+import Search from './pages/Search';
+import InputField from './components/inputfield/InputField';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const data = {
-    isLoggedIn, setIsLoggedIn
-  }
+const userContext = useContext(AuthContext);
 
   return (
-    <authContext.Provider value={data}>
       <div className="container">
-      {
-        data.isLoggedIn ? <button onClick={ () => data.setIsLoggedIn(false)}>Logout</button> : <button onClick={ () => data.setIsLoggedIn(true)}>Login</button>
-      }
+        <Nav />
+        <InputField />
         <Routes>
           <Route path="/" element={<Home  />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={ <OnlyAuth> <Profile /> </OnlyAuth> } />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/logout' element={<Logout />} />
+          <Route path='/datatable' element={<Datatable />} />
+          <Route path='/search' element={<Search />} />
         </Routes>
       </div>
-    </authContext.Provider>
-
   );
 }
 
